@@ -1,0 +1,120 @@
+:root{
+    --color-principal: #fff;
+    --color-titulo: #fff;
+
+    --h-portada: 600px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container{
+    width: 90%;
+    margin: auto;
+}
+
+body {
+    margin-bottom: 1000px;
+    background-color: var(--color-principal);
+    font-family: sans-serif;
+}
+
+.menu{
+    height: 86px;
+    position: sticky;
+    top: -33px;
+    z-index: 999;
+    background-color: var(--color-principal); 
+}
+
+.logo{
+    height: 75px;
+    display: flex;
+    align-items: flex-end;
+    /* justify-content: center; */
+    
+}
+.logo img {
+    max-width: 40px;
+    height: auto;
+    
+    
+}
+
+.logo p {
+    font-size: 25px;
+    font-weight: 600;
+    margin-left: 5px;
+}
+.seccion-portada{
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+.seccion-titulo{
+    width: 50%;
+    position: absolute;
+    z-index: 888;
+    padding-top: 100px;
+    text-align: center;
+}
+.titulo{
+    font-size: 50px;
+    color: var(--color-titulo);
+}
+.sub-titulo{
+    font-size: 25px;
+    color: var(--color-titulo);
+    padding: 50px 30px;
+    
+}
+.portada {
+    height: var(--h-portada);
+    width: 100%;
+    background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(./imagenes/coding-man.jpg);
+    background-size: cover;
+    background-position: center top;
+    background-attachment: fixed;
+    opacity: 0;
+    animation: imageAnimation 24s linear infinite 0s;
+}
+
+ .portada2 {
+    height: var(--h-portada);
+    width: 100%;
+    background-image:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)), url(./imagenes/science-biology-education-development-experiment-research.jpg);
+
+    background-size: cover;
+    background-position: center bottom;
+    background-attachment: fixed;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    animation: imageAnimation 24s linear infinite 12s;
+}
+
+@keyframes imageAnimation {
+    0% {
+        opacity: 0;
+        animation-timing-function: ease-in;
+    }
+
+    8% {
+        opacity: 1;
+        animation-timing-function: ease-out;
+    }
+
+    50% {
+        opacity: 1
+    }
+
+    60% {
+        opacity: 0
+    }
+
+    100% {
+        opacity: 0
+    }
+} 
