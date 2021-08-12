@@ -128,12 +128,12 @@ body {
 
     .portada{
         background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url(./imagenes/coding-man-small.jpg);
-        height: 300px;
+        height: 420px;
         /* corregir */
     }
     .portada2{
         background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url(./imagenes/education-development-small.jpg);
-        height: 300px;
+        height: 420px;
         /* corregir */
     }
 
