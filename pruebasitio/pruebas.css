@@ -10,6 +10,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 .container{
     width: 90%;
     margin: auto;
@@ -54,20 +55,23 @@ body {
     position: relative;
 }
 .seccion-titulo{
-    width: 50%;
+    width: 55%;
     position: absolute;
     z-index: 888;
     padding-top: 100px;
     text-align: center;
 }
 .titulo{
-    font-size: 50px;
+    font-size: 60px;
     color: var(--color-titulo);
+    letter-spacing: 2px;
 }
 .sub-titulo{
     font-size: 25px;
     color: var(--color-titulo);
     padding: 50px 30px;
+    letter-spacing: 2px;
+    line-height: 30px;
     
 }
 .portada {
@@ -124,21 +128,26 @@ body {
 
     .portada{
         background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url(./imagenes/coding-man-small.jpg);
+        height: 480px;
+        /* corregir */
     }
     .portada2{
         background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url(./imagenes/education-development-small.jpg);
+        height: 480px;
+        /* corregir */
     }
 
     .seccion-titulo{
-        width: 95%;
-        padding-top: 70px;
+        width: 90%;
+        padding-top: 50px;
     }
     .titulo{
-        font-size: 25px;
+        font-size: 30px;
     }
     .sub-titulo{
-        font-size: 16px;
-        padding: 50px 30px;
+        font-size: 18px;
+        padding: 25px 20px;
+        line-height: 25px;
         
     }
     
