@@ -73,7 +73,7 @@ body {
 .portada {
     height: var(--h-portada);
     width: 100%;
-    background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(./imagenes/coding-man.jpg);
+    background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url(./imagenes/coding-man.jpg);
     background-size: cover;
     background-position: center top;
     background-attachment: fixed;
@@ -84,7 +84,7 @@ body {
  .portada2 {
     height: var(--h-portada);
     width: 100%;
-    background-image:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)), url(./imagenes/science-biology-education-development-experiment-research.jpg);
+    background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(./imagenes/education-development.jpg);
 
     background-size: cover;
     background-position: center bottom;
