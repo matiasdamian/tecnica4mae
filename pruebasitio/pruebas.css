@@ -77,7 +77,7 @@ body {
 .portada {
     height: var(--h-portada);
     width: 100%;
-    background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url(./imagenes/coding-man.jpg);
+    background-image:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)),url(./imagenes/coding-man.jpg);
     background-size: cover;
     background-position: center top;
     background-attachment: fixed;
@@ -88,7 +88,7 @@ body {
  .portada2 {
     height: var(--h-portada);
     width: 100%;
-    background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(./imagenes/education-development.jpg);
+    background-image:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)), url(./imagenes/education-development.jpg);
 
     background-size: cover;
     background-position: center bottom;
@@ -127,14 +127,14 @@ body {
 @media screen And (max-width:900px) {
 
     .portada{
-        background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url(./imagenes/coding-man-small.jpg);
-        height: 420px;
+        background-image:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)),url(./imagenes/coding-man-small.jpg);
+        height: 430px;
         /* corregir esto */
     }
     .portada2{
-        background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url(./imagenes/education-development-small.jpg);
-        height: 420px;
-        /* corregir */
+        background-image:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)),url(./imagenes/education-development-small.jpg);
+        height: 430px; 
+       /* corregir */
     }
 
     .seccion-titulo{
@@ -149,5 +149,12 @@ body {
         padding: 24px 20px;
         line-height: 25px;
     }
+
+    .logo{
+        
+       justify-content: center;
+        /* corregir */
+    }
+ 
     
 }
