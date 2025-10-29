@@ -291,7 +291,7 @@ body {
 .project-description {
   font-size: 0.95rem;
   line-height: 1.7;
-  color: var(--color-text-secondary);
+  color: var(--color-text-primary);
   margin-bottom: 1.5rem;
   opacity: 0.9;
   transform: translateY(10px);
