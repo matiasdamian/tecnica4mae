@@ -205,9 +205,9 @@ function cargarDestacados() {
   
   if (menuDestacado) {
     const itemsDestacados = [
-      { nombre: "Pizza Pepperoni", precio: 5900, img: "https://via.placeholder.com/250x180/ff6b6b/ffffff?text=Pizza+Pepperoni" },
-      { nombre: "Hamburguesa Doble", precio: 4800, img: "https://via.placeholder.com/250x180/4ecdc4/ffffff?text=Hamburguesa+Doble" },
-      { nombre: "Pizza Cuatro Quesos", precio: 6300, img: "https://via.placeholder.com/250x180/45b7d1/ffffff?text=Cuatro+Quesos" }
+      { nombre: "Pizza Pepperoni", precio: 5900, img: "./img/peperoni.jfif" },
+      { nombre: "Hamburguesa Doble", precio: 4800, img: "./img/hamburguezadoble.jfif" },
+      { nombre: "Pizza Cuatro Quesos", precio: 6300, img: "./img/cuatroquesos.jfif" }
     ];
     
     menuDestacado.innerHTML = itemsDestacados.map(item => `
