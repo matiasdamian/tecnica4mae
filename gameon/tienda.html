@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Productos | GameOn</title>
+  <link rel="stylesheet" href="./style2.0.css" />
+</head>
+<body>
+  <!-- ====== HEADER ====== -->
+  <header class="header">
+    <nav class="menu container">
+      <a href="./index.html" class="logo">GameOn</a>
+      <span class="menu-toggle" onclick="toggleSidebar()">☰</span>
+    </nav>
+    <aside id="sidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">✖</a>
+      <a href="./inicio.html">Inicio</a>
+      <a href="./tienda.html">Tienda</a>
+      <a href="./comunidad.html">Comunidad</a>
+      <a href="./contacto.html">Contacto</a>
+    </aside>
+  </header>
+
+  <!-- ====== JUEGOS ====== -->
+  <section class="community">
+    <h2>🎮 Todos los Juegos</h2>
+    <p>Explorá los títulos más populares y elegí tu próxima aventura.</p>
+
+    <!-- Contenedor del carrusel con botones -->
+    <div class="carousel-container">
+      <button class="scroll-btn prev">❮</button>
+      <div class="game-carousel">
+        <!-- Los juegos se generan dinámicamente desde script.js -->
+      </div>
+      <button class="scroll-btn next">❯</button>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-logo">GameOn</div>
+    <p>© 2025 GameOn | Donde los gamers viven la acción.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

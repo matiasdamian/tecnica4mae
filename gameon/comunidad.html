@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GameOn Comunidad</title>
+  <link rel="stylesheet" href="./style2.0.css">
+</head>
+<body>
+
+  <!-- ====== HEADER ====== -->
+  <header class="header">
+    <nav class="menu container">
+      <a href="./index.html" class="logo">GameOn</a>
+      <span class="menu-toggle" onclick="toggleSidebar()">☰</span>
+    </nav>
+
+    <aside id="sidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">✖</a>
+      <a href="./inicio.html">Inicio</a>
+      <a href="./tienda.html">Tienda</a>
+      <a href="./comunidad.html">Comunidad</a>
+      <a href="./contacto.html">Contacto</a>
+    </aside>
+  </header>
+
+  <!-- ====== COMUNIDAD ====== -->
+  <section class="community">
+    <h2>🌐 Comunidad GameOn</h2>
+    <p>Conectá con otros gamers, compartí tus experiencias y descubrí contenido nuevo cada día.</p>
+
+    <!-- PUBLICACIONES -->
+    <div class="community-feed container">
+      <div class="post">
+        <img src="img/pubgfoto.jpg" alt="PUBG Post">
+        <div class="post-info">
+          <h3>@DarkPlayer</h3>
+          <p>“Gané mi primera partida en PUBG, fue increíble 😎🔥”</p>
+          <span>Hace 2 horas</span>
+        </div>
+      </div>
+
+      <div class="post">
+        <img src="img/minecraftfoto.webp" alt="Minecraft Post">
+        <div class="post-info">
+          <h3>@CreeperMaster</h3>
+          <p>“Nuevo servidor survival abierto, ¡únete a nuestra comunidad!”</p>
+          <span>Hace 5 horas</span>
+        </div>
+      </div>
+
+      <div class="post">
+        <img src="img/valorantfoto.jpg" alt="Valorant Post">
+        <div class="post-info">
+          <h3>@AimQueen</h3>
+          <p>“¿Alguien más vió el nuevo agente de Valorant? Está roto 😂”</p>
+          <span>Hace 8 horas</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN DE ACTIVIDAD -->
+    <div class="activity-board">
+      <h3>🔥 Actividad Reciente</h3>
+      <ul>
+        <li>💬 <b>@Rogue97</b> comentó en <i>Assassin’s Creed</i></li>
+        <li>🎮 <b>@LeoGamer</b> compró <i>Far Cry 5</i></li>
+        <li>⭐ <b>@LunaDev</b> calificó <i>Minecraft</i> con 5 estrellas</li>
+        <li>🕹️ <b>@ZeroBit</b> se unió a la comunidad</li>
+      </ul>
+    </div>
+<!-- PUBLICACIONES DE USUARIOS (ESTILO REDDIT) -->
+<div class="reddit-style-feed">
+  <div class="reddit-post">
+    <div class="reddit-header">
+      <img src="img/perfil1.jpg" alt="Usuario 1">
+      <div>
+        <h4>u/ShadowHunter</h4>
+        <span>hace 2 horas</span>
+      </div>
+    </div>
+    <p class="reddit-content">¿Cuál fue el juego que más te marcó en la infancia? 🎮</p>
+    <div class="reddit-actions">
+      <span>⬆️ 8.3k</span>
+      <span>💬 2.7k</span>
+      <span>🔗 Compartir</span>
+    </div>
+  </div>
+
+  <div class="reddit-post">
+    <div class="reddit-header">
+      <img src="img/perfil2.jpg" alt="Usuario 2">
+      <div>
+        <h4>u/PixelQueen</h4>
+        <span>hace 4 horas</span>
+      </div>
+    </div>
+    <p class="reddit-content">Acabo de terminar *Hollow Knight*... qué experiencia hermosa 😭💜</p>
+    <div class="reddit-actions">
+      <span>⬆️ 5.4k</span>
+      <span>💬 1.1k</span>
+      <span>🔗 Compartir</span>
+    </div>
+  </div>
+
+  <div class="reddit-post">
+    <div class="reddit-header">
+      <img src="img/perfil3.jpg" alt="Usuario 3">
+      <div>
+        <h4>u/NoScopeKing</h4>
+        <span>hace 7 horas</span>
+      </div>
+    </div>
+    <p class="reddit-content">Hoy hice mi mejor partida en Valorant 😎🔥</p>
+    <div class="reddit-actions">
+      <span>⬆️ 6.2k</span>
+      <span>💬 982</span>
+      <span>🔗 Compartir</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- PANEL GAMEON EN VIVO -->
+<section class="gameon-live">
+  <div class="live-container">
+
+    <div class="highlight-user">
+      <h3>🌟 Usuario Destacado</h3>
+      <img src="img/perfil4.jpg" alt="Usuario destacado">
+      <h4>@NeoLegend</h4>
+      <p>“Ayudando a más de 50 jugadores este mes 🎮”</p>
+    </div>
+
+    <div class="monthly-members">
+      <h3>👥 Últimos Miembros</h3>
+      <ul>
+        <li>@BluePhoenix</li>
+        <li>@Rogue97</li>
+        <li>@PixelFox</li>
+        <li>@VortexX</li>
+      </ul>
+    </div>
+
+    <div class="live-features">
+      <h3>🎧 GameOn en Vivo</h3>
+      <div class="live-buttons">
+        <button class="btn">💬 Chat en vivo</button>
+        <button class="btn-outline">📻 Radio en vivo</button>
+      </div>
+    </div>
+
+    <div class="artist-news">
+      <h3>📰 Noticias Gamer</h3>
+      <p>🎮 Ubisoft anuncia nuevo DLC de *Assassin’s Creed*.  
+      🎤 Banda sonora de *Valorant* llega a Spotify.</p>
+    </div>
+
+    <div class="forum-wall">
+      <h3>🧱 Muro del Foro</h3>
+      <div class="wall-post">@LunaDev: “Busco team para Apex Legends 💥”</div>
+      <div class="wall-post">@ZeroBit: “Alguien sabe cómo mejorar FPS en Valorant?”</div>
+      <div class="wall-post">@PixelQueen: “Haciendo stream de Hollow Knight 💜”</div>
+    </div>
+
+    <div class="help-requests">
+      <h3>🙋 Pedidos de ayuda</h3>
+      <ul>
+        <li>@DarkPlayer: “No me carga el servidor de Minecraft 😢”</li>
+        <li>@Rogue97: “¿Cómo desbloqueo el final secreto de Hollow Knight?”</li>
+        <li>@NeoLegend: “Busco grupo para raid en Destiny 2”</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+
+    <!-- FORMULARIO DE PUBLICACIÓN -->
+    <div class="new-post">
+      <h3>✍️ Crear una nueva publicación</h3>
+      <textarea placeholder="¿Qué estás jugando hoy?"></textarea>
+      <button class="btn">Publicar</button>
+    </div>
+  </section>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="footer">
+    <div class="footer-logo">GameOn</div>
+    <p>© 2025 GameOn | Hecho por gamers, para gamers.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
