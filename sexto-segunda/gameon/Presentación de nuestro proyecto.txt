@@ -1,0 +1,6 @@
+Presentación de nuestro proyecto.
+
+
+1) Nuestro proyecto, se trata sobre una página de venta de vídeojuegos que integre una comunidad. 
+
+2) Ya desde el primer momento, teníamos muchas expectativas e interés en desarrollarla, bastante inspiración de otro sitios web con el mismo tema. Nos comió un poco el tema del tiempo, arrancamos tarde y muchas ideas no se pudieron concretar, pero se llegó a un gran resultado. El desarrollo, fue en su gran parte autodidacta, utilizando herramientas del internet para poder finiquitar el desarrollo.

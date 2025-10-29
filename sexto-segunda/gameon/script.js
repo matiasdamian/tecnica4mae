@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <img src="${g.img}" alt="${g.title}">
         <h3>${g.title}</h3>
         <p>${g.price}</p>
-        <a href="${g.file}" class="btn" target="_self" rel="noopener">Comprar</a>
+        <a href="./${g.file}" class="btn" target="_self" rel="noopener">Comprar</a>
       `;
 
       gameCarousel.appendChild(card);
