@@ -222,9 +222,9 @@ function cargarDestacados() {
   
   if (merchDestacado) {
     const merchItems = [
-      { nombre: "Remera Freddy", precio: 8000, img: "https://via.placeholder.com/250x180/ff9ff3/ffffff?text=Remera+Freddy" },
-      { nombre: "Gorra Bonnie", precio: 6000, img: "https://via.placeholder.com/250x180/54a0ff/ffffff?text=Gorra+Bonnie" },
-      { nombre: "Taza Chica", precio: 4500, img: "https://via.placeholder.com/250x180/5f27cd/ffffff?text=Taza+Chica" }
+      { nombre: "Remera Freddy", precio: 8000, img: "./img/remera.jfif" },
+      { nombre: "Gorra Bonnie", precio: 6000, img: "./img/gorra.jfif" },
+      { nombre: "Taza Chica", precio: 4500, img: "./img/taza.jfif" }
     ];
     
     merchDestacado.innerHTML = merchItems.map(item => `
