@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inicio de Sesión | GameOn</title>
+  <link rel="stylesheet" href="style2.0.css" />
+</head>
+<body>
+  <!-- ====== HEADER ====== -->
+  <header class="header">
+    <nav class="menu container">
+      <a href="index2.0.html" class="logo">GameOn</a>
+      <span class="menu-toggle" onclick="toggleSidebar()">☰</span>
+    </nav>
+    <aside id="sidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">✖</a>
+      <a href="inicio.html">Inicio</a>
+      <a href="tienda.html">Tienda</a>
+      <a href="comunidad.html">Comunidad</a>
+      <a href="contacto.html">Contacto</a>
+    </aside>
+  </header>
+
+  <!-- ====== FORMULARIO DE INICIO ====== -->
+  <section class="community">
+    <h2>🎮 Iniciá Sesión en GameOn</h2>
+    <p>Accedé a tu cuenta para unirte a la comunidad gamer.</p>
+
+    <div class="new-post" style="max-width: 450px;">
+      <h3>👤 Iniciar Sesión</h3>
+      <form>
+        <input class="controls" type="text" placeholder="Nombre de usuario" required />
+        <input class="controls" type="email" placeholder="Correo electrónico" required />
+        <input class="controls" type="password" placeholder="Contraseña" required />
+        <button type="submit" class="btn">Entrar</button>
+      </form>
+      <p style="margin-top: 15px;">¿No tenés cuenta? <a href="#" style="color:#39ff14;">Registrate aquí</a></p>
+    </div>
+  </section>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="footer">
+    <div class="footer-logo">GameOn</div>
+    <p>© 2025 GameOn | Potenciando tu mundo gamer.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
