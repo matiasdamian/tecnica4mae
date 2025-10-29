@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Freddy's Pizzería</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <!-- From Uiverse.io by andrew-demchenk0 -->
+  <div class="wrapper">
+    <div class="card-switch">
+      <label class="switch">
+        <input class="toggle" type="checkbox">
+        <span class="slider"></span>
+        <span class="card-side"></span>
+        <div class="flip-card__inner">
+          
+          <!-- LOGIN -->
+          <div class="flip-card__front">
+            <div class="title">Log in</div>
+            <form class="flip-card__form" id="loginForm">
+              <input type="email" placeholder="Email" name="email" class="flip-card__input" required>
+              <input type="password" placeholder="Password" name="password" class="flip-card__input" required>
+              <button type="submit" class="flip-card__btn">Let`s go!</button>
+            </form>
+          </div>
+          
+          <!-- SIGN UP -->
+          <div class="flip-card__back">
+            <div class="title">Sign up</div>
+            <form class="flip-card__form" id="registroForm">
+              <input type="text" placeholder="Name" name="name" class="flip-card__input" required>
+              <input type="email" placeholder="Email" name="email" class="flip-card__input" required>
+              <input type="password" placeholder="Password" name="password" class="flip-card__input" required>
+              <button type="submit" class="flip-card__btn">Confirm!</button>
+            </form>
+          </div>
+          
+        </div>
+      </label>
+    </div>
+  </div>
+  
+  <script src="login-script.js"></script>
+</body>
+</html>

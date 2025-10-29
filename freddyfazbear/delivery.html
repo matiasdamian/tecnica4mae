@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedido a domicilio - Freddy's Pizzería</title>
+  <style>
+    :root {
+      --c-bg: #111;
+      --c-card: #1c1c1c;
+      --c-main: #ffcc00;
+      --c-sub: #aaa;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--c-bg);
+      color: #fff;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      z-index: 1000;
+    }
+    .logo img { height: 50px; cursor: pointer; }
+    .acciones { display: flex; align-items: center; gap: 15px; flex-shrink: 0; }
+    nav { flex: 1 1 auto; min-width: 0; display: flex; justify-content: center; }
+    nav ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    nav ul li { margin: 0; }
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+      transition: color .3s;
+    }
+    nav ul li a:hover { color: var(--c-main); }
+    .carrito { cursor: pointer; font-size: 22px; flex-shrink: 0; }
+
+    main { padding: 100px 20px 40px; max-width: 1200px; margin: auto; text-align:center; }
+    h1 { text-align: center; margin-bottom: 30px; }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      justify-content: center;
+    }
+    .tab-btn {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 25px;
+      background: #333;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .tab-btn.active { background: var(--c-main); color: #000; }
+    .tab-btn:hover { background: #555; }
+
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .producto {
+      background: #222;
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 0 12px #000;
+      transition: transform 0.2s;
+    }
+    .producto:hover { transform: scale(1.05); }
+    .producto img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .producto h3 { margin: 10px 0; font-size: 18px; }
+    .producto p { color: var(--c-sub); margin: 5px 0; }
+    .producto button {
+      background: var(--c-main);
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .checkout {
+      margin-top:20px;
+      background:var(--c-main);
+      border:none;
+      padding:10px 15px;
+      width:100%;
+      cursor:pointer;
+      border-radius:8px;
+      font-size:16px;
+    }
+
+    /* Modal pago */
+    #paymentModal, #addressModal {
+      display:none; position:fixed; inset:0;
+      background:rgba(0,0,0,0.7);
+      justify-content:center; align-items:center;
+      z-index:3000;
+    }
+    #paymentModal .box, #addressModal .box {
+      background:#1c1c1c;
+      padding:20px;
+      border-radius:12px;
+      width:90%; max-width:500px;
+      color:#fff;
+    }
+    #paymentModal input, #addressModal input {width:100%; padding:8px; margin-bottom:10px; border-radius:6px; border:none;}
+    #paymentModal button, #addressModal button {padding:10px 15px; border:none; border-radius:6px; margin-top:5px; cursor:pointer;}
+
+    /* ===============================
+       📱 RESPONSIVE DESIGN
+       =============================== */
+    @media (max-width: 768px) {
+      header {
+        padding: 10px 15px;
+        flex-wrap: wrap;
+      }
+      
+      .logo img {
+        height: 40px;
+      }
+      
+      nav ul {
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+      
+      nav ul li {
+        margin: 0 8px;
+      }
+      
+      .carrito {
+        font-size: 20px;
+      }
+      
+      main {
+        padding: 80px 15px 40px;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+      }
+      
+      .tabs {
+        gap: 8px;
+        margin-bottom: 15px;
+      }
+      
+      .tab-btn {
+        padding: 8px 14px;
+        font-size: 14px;
+      }
+      
+      .productos {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
+      }
+      
+      .producto {
+        padding: 12px;
+      }
+      
+      .producto img {
+        height: 140px;
+      }
+      
+      .producto h3 {
+        font-size: 16px;
+      }
+      
+      .checkout {
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+      
+      #paymentModal .box, #addressModal .box {
+        width: 95%;
+        padding: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 8px 10px;
+      }
+      
+      nav ul {
+        gap: 10px;
+      }
+      
+      nav ul li a {
+        font-size: 14px;
+      }
+      
+      main {
+        padding: 70px 10px 30px;
+      }
+      
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      .tabs {
+        gap: 5px;
+        margin-bottom: 12px;
+      }
+      
+      .tab-btn {
+        padding: 6px 10px;
+        font-size: 12px;
+      }
+      
+      .productos {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      
+      .producto {
+        padding: 10px;
+      }
+      
+      .producto img {
+        height: 120px;
+      }
+      
+      .producto h3 {
+        font-size: 14px;
+      }
+      
+      .checkout {
+        padding: 6px 10px;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo" onclick="location.href='index.html'">
+    <img src="img/logo-freddy.png" alt="Logo Freddy">
+  </div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="menu.html">Menú</a></li>
+      <li><a href="merch.html">Merchandising</a></li>
+      <li><a href="reservations.html">Reservaciones</a></li>
+    </ul>
+  </nav>
+  <div class="acciones">
+    <div class="carrito" onclick="toggleCart()">🛒</div>
+  </div>
+</header>
+
+<main>
+  <h1>Pedido a domicilio</h1>
+  <p>Elegí tus platos favoritos y recibí tu pedido directamente en casa 🍕</p>
+
+  <div id="tabs" class="tabs"></div>
+  <div id="productos" class="productos"></div>
+
+  <h3>Carrito</h3>
+  <div id="cart"></div>
+  <strong id="total">$ 0</strong>
+  <button class="checkout" onclick="askAddress()">Finalizar pedido</button>
+</main>
+
+<!-- Modal dirección -->
+<div id="addressModal">
+  <div class="box">
+    <h3>Dirección de entrega</h3>
+    <form id="addressForm">
+      <input name="direccion" placeholder="Calle y número" required>
+      <input name="ciudad" placeholder="Ciudad" required>
+      <input name="telefono" placeholder="Teléfono de contacto" required>
+      <button type="submit" style="background:#ffcc00;">Confirmar dirección</button>
+      <button type="button" onclick="closeAddress()" style="background:#555; color:#fff;">Cancelar</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal pago -->
+<div id="paymentModal">
+  <div class="box">
+    <h3>Pago con tarjeta</h3>
+    <form id="cardForm">
+      <input name="number" placeholder="Número de tarjeta" required>
+      <input name="holder" placeholder="Titular" required>
+      <input name="exp" placeholder="MM/AA" required>
+      <input name="cvv" placeholder="CVV" required>
+      <button type="submit" style="background:#ffcc00;">Pagar ahora</button>
+      <button type="button" onclick="closePayment()" style="background:#555; color:#fff;">Cancelar</button>
+    </form>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  // === MENÚ PRINCIPAL ===
+  const MENU = {
+    pizzas: [
+      {nombre:"Pizza Pepperoni", precio:5900, img:"https://via.placeholder.com/220x160/ff6b6b/ffffff?text=Pizza+Pepperoni"},
+      {nombre:"Pizza Margarita", precio:5500, img:"https://via.placeholder.com/220x160/4ecdc4/ffffff?text=Pizza+Margarita"},
+      {nombre:"Cuatro Quesos", precio:6300, img:"https://via.placeholder.com/220x160/45b7d1/ffffff?text=Cuatro+Quesos"},
+      {nombre:"Pizza Hawaiana", precio:6000, img:"https://via.placeholder.com/220x160/96ceb4/ffffff?text=Pizza+Hawaiana"}
+    ],
+    hamburguesas: [
+      {nombre:"Hamburguesa Clásica", precio:4800, img:"https://via.placeholder.com/220x160/ff6348/ffffff?text=Hamburguesa+Clásica"},
+      {nombre:"Hamburguesa Doble", precio:6200, img:"https://via.placeholder.com/220x160/ff9ff3/ffffff?text=Hamburguesa+Doble"},
+      {nombre:"Hamburguesa Triple", precio:7500, img:"https://via.placeholder.com/220x160/feca57/ffffff?text=Hamburguesa+Triple"}
+    ],
+    pollo: [
+      {nombre:"Pollo Frito", precio:7200, img:"https://via.placeholder.com/220x160/feca57/ffffff?text=Pollo+Frito"},
+      {nombre:"Alitas BBQ", precio:6500, img:"https://via.placeholder.com/220x160/ff6b6b/ffffff?text=Alitas+BBQ"},
+      {nombre:"Rabas", precio:4500, img:"https://via.placeholder.com/220x160/54a0ff/ffffff?text=Rabas"}
+    ],
+    bebidas: [
+      {nombre:"Agua 1.5L", precio:1800, img:"https://via.placeholder.com/220x160/54a0ff/ffffff?text=Agua"},
+      {nombre:"CocaCola 1.5L", precio:2800, img:"https://via.placeholder.com/220x160/5f27cd/ffffff?text=CocaCola"},
+      {nombre:"Sprite 1.5L", precio:2700, img:"https://via.placeholder.com/220x160/00d2d3/ffffff?text=Sprite"}
+    ],
+    postres: [
+      {nombre:"Helado Fantasma", precio:2700, img:"https://via.placeholder.com/220x160/ff9ff3/ffffff?text=Helado+Fantasma"},
+      {nombre:"Postre de la Casa", precio:2300, img:"https://via.placeholder.com/220x160/5f27cd/ffffff?text=Postre+de+la+Casa"}
+    ],
+    combos: [
+      {nombre:"Combo Familiar", precio:12500, img:"https://via.placeholder.com/220x160/2c2c54/ffffff?text=Combo+Familiar"},
+      {nombre:"Combo Terror", precio:8500, img:"https://via.placeholder.com/220x160/40407a/ffffff?text=Combo+Terror"}
+    ]
+  };
+
+  // === VARIABLES ===
+  let categoriaActiva = Object.keys(MENU)[0];
+  const carrito = [];
+  const tabsContainer = document.getElementById('tabs');
+  const productosContainer = document.getElementById('productos');
+  const cartContainer = document.getElementById('cart');
+  const totalEl = document.getElementById('total');
+
+  // === RENDERIZAR MENÚ ===
+  function renderTabs(){
+    tabsContainer.innerHTML = '';
+    Object.keys(MENU).forEach(cat=>{
+      const btn=document.createElement('button');
+      btn.className='tab-btn';
+      if(cat===categoriaActiva) btn.classList.add('active');
+      btn.textContent=cat.charAt(0).toUpperCase()+cat.slice(1);
+      btn.addEventListener('click',()=>{categoriaActiva=cat;renderProductos();document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');});
+      tabsContainer.appendChild(btn);
+    });
+    renderProductos();
+  }
+
+  function renderProductos(){
+    productosContainer.innerHTML='';
+    MENU[categoriaActiva].forEach(m=>{
+      const card=document.createElement('div');
+      card.className='producto';
+      card.innerHTML=`
+        <img src="${m.img}" alt="${m.nombre}">
+        <h3>${m.nombre}</h3>
+        <p>$ ${m.precio.toLocaleString('es-AR')}</p>
+        <button>Añadir</button>`;
+      card.querySelector('button').addEventListener('click',()=>{addToCart(m.nombre,m.precio,1);renderCart();});
+      productosContainer.appendChild(card);
+    });
+  }
+
+  // === CARRITO ===
+  function addToCart(nombre, precio, cantidad=1){
+    const idx = carrito.findIndex(x=>x.nombre===nombre);
+    if(idx>-1) carrito[idx].cantidad+=cantidad;
+    else carrito.push({nombre,precio,cantidad});
+  }
+
+  function renderCart(){
+    cartContainer.innerHTML='';
+    let total=0;
+    carrito.forEach((x)=>{
+      total+=x.precio*x.cantidad;
+      const line=document.createElement('div');
+      line.textContent=`${x.nombre} × ${x.cantidad} - $ ${(x.precio*x.cantidad).toLocaleString('es-AR')}`;
+      cartContainer.appendChild(line);
+    });
+    totalEl.textContent='$ '+total.toLocaleString('es-AR');
+  }
+
+  // === DIRECCIÓN Y PAGO ===
+  window.askAddress=function(){
+    if(carrito.length===0){alert('Tu carrito está vacío.');return;}
+    document.getElementById('addressModal').style.display='flex';
+  }
+
+  function closeAddress(){ document.getElementById('addressModal').style.display='none'; }
+  function closePayment(){ document.getElementById('paymentModal').style.display='none'; }
+
+  document.getElementById('addressForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    document.getElementById('addressModal').style.display='none';
+    document.getElementById('paymentModal').style.display='flex';
+  });
+
+  document.getElementById('cardForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  const total = carrito.reduce((acc, x)=>acc+x.precio*x.cantidad, 0);
+  const detalles = JSON.stringify(carrito);
+  const direccion = document.querySelector('[name="direccion"]').value;
+
+  // Simular guardado de pedido
+  if (guardarPedido('delivery', detalles, total, direccion)) {
+    alert('Pedido confirmado y guardado en tu cuenta ✅');
+    carrito.length=0;renderCart();
+    document.getElementById('paymentModal').style.display='none';
+  } else {
+    alert('Error al guardar pedido');
+  }
+});
+
+  // === INICIAR ===
+  renderTabs();
+});
+</script>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+# Esquema de Base de Datos - Freddy Fazbear's Pizzería (MySQL)
+
+CREATE DATABASE IF NOT EXISTS freddy;
+USE freddy;
+
+-- Tabla de usuarios registrados
+CREATE TABLE usuarios (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(150),
+  email VARCHAR(150) UNIQUE,
+  password VARCHAR(255),         -- Contraseña encriptada con password_hash()
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabla de pedidos (delivery, reservas, merchandising)
+CREATE TABLE pedidos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  id_usuario INT,
+  tipo ENUM('delivery','reserva','merch') NOT NULL,
+  detalles JSON,                 -- Contiene productos, precios y cantidades en formato JSON
+  total DECIMAL(10,2),
+  direccion VARCHAR(255) NULL,
+  pizzeria_id VARCHAR(100) NULL, -- Freddy, Fredbear, Circus Baby, Fazbear Fright
+  mesa INT NULL,                 -- Número de mesa (solo si es reserva)
+  personas INT NULL,             -- Cantidad de personas en la reserva
+  fecha_reserva DATETIME NULL,   -- Fecha y hora de la reserva
+  fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE SET NULL
+);
+
+-- Tabla de productos de merchandising
+CREATE TABLE merch (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(150),
+  precio DECIMAL(10,2),
+  imagen VARCHAR(255)
+);
+
+-- Tabla de métodos de pago (tarjetas simuladas, no reales)
+CREATE TABLE pagos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  id_usuario INT,
+  brand VARCHAR(50),             -- Ej: Visa, Mastercard
+  masked_number VARCHAR(25),     -- Ej: **** **** **** 1234
+  holder_name VARCHAR(150),
+  exp_month TINYINT,
+  exp_year SMALLINT,
+  token VARCHAR(255) NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
+Ejemplo de inserción de usuario de prueba
+INSERT INTO usuarios (nombre, email, password) VALUES
+('Admin', 'admin@pizzeria.com', '$2y$10$XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'); -- Contraseña hasheada
+
+
+# Descripción rápida:
+# usuarios  -> almacena los datos de los clientes registrados
+# pedidos   -> guarda toda compra, reserva o pedido a domicilio
+# merch     -> catálogo de productos físicos
+# pagos     -> tarjetas asociadas al usuario (solo máscara, no datos reales)

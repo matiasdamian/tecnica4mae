@@ -1,0 +1,361 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Freddy Fazbear’s Pizzería</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --c-bg: #0a0a0a;
+      --c-card: #181818;
+      --c-main: #ffcc00;
+      --c-sub: #bbb;
+      --c-accent: #ff9900;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+    body { background: var(--c-bg); color: #fff; overflow-x: hidden; }
+
+    header {
+      width: 100%; position: fixed; top: 0; left: 0;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 15px 40px; z-index: 1000;
+      backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .logo img { height: 60px; cursor: pointer; }
+    nav { flex: 1 1 auto; min-width: 0; display: flex; justify-content: center; }
+    nav ul { list-style: none; display: flex; gap: 25px; flex-wrap: wrap; }
+    /* Allow wrap to avoid pushing cart off-screen */
+    nav ul { flex-wrap: wrap; }
+    nav ul li a { color: white; text-decoration: none; font-weight: 600; transition: color 0.3s; }
+    nav ul li a:hover { color: var(--c-main); }
+
+    .acciones { display: flex; align-items: center; gap: 15px; flex-shrink: 0; }
+    .login-btn {
+      background: var(--c-main); color: black;
+      padding: 8px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; text-decoration: none;
+    }
+    .login-btn:hover { background: var(--c-accent); }
+    .user-icon { font-size: 26px; cursor: pointer; position: relative; }
+    .user-menu {
+      display: none; position: absolute; right: 0; top: 40px;
+      background: #222; border-radius: 8px; padding: 10px; z-index: 100;
+    }
+    .user-menu.show { display: block; }
+    .user-menu a {
+      display: block; color: #fff; text-decoration: none; margin: 5px 0;
+    }
+    .user-menu a:hover { color: var(--c-main); }
+
+    .carrito { cursor: pointer; font-size: 22px; flex: 0 0 auto; }
+
+    .panel-carrito {
+      display: none; position: fixed; top: 80px; right: 20px;
+      background: #1c1c1c; padding: 15px; border-radius: 10px;
+      width: 300px; z-index: 1000;
+    }
+    .panel-carrito .item {
+      display: flex; align-items: center; justify-content: space-between;
+      background: #222; margin: 5px 0; padding: 5px; border-radius: 8px;
+    }
+
+    /* Hero */
+    .hero { height: 100vh; position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; text-align: center; }
+    .hero::before {
+      content: ""; position: absolute; inset: 0;
+      background: url("./fec80732b90a49f2c3a4b9720617d075.gif") center/cover no-repeat;
+      z-index: 1; filter: brightness(0.4);
+    }
+    .hero-content { position: relative; z-index: 2; padding: 0 20px; max-width: 800px; }
+    .hero h1 { font-size: 3em; color: var(--c-main); margin-bottom: 20px; }
+    .hero p { font-size: 1.2em; color: var(--c-sub); margin-bottom: 25px; }
+    .hero .btn {
+      background: var(--c-main); color: #000; padding: 12px 25px; font-size: 1.1em;
+      border-radius: 6px; font-weight: bold; text-decoration: none; transition: background 0.3s;
+    }
+    .hero .btn:hover { background: var(--c-accent); }
+
+    section { padding: 80px 20px; max-width: 1200px; margin: auto; }
+    section h2 { text-align: center; color: var(--c-main); margin-bottom: 40px; font-size: 2em; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+    .card {
+      background: var(--c-card); border-radius: 12px; padding: 15px; text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(255,204,0,0.3); }
+    .card img { width: 100%; height: 180px; border-radius: 10px; object-fit: cover; }
+    .card h3 { margin: 10px 0; }
+    .card p { color: var(--c-sub); margin-bottom: 10px; }
+    .card button {
+      background: var(--c-main); border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: bold;
+    }
+    .card button:hover { background: var(--c-accent); }
+
+    .opiniones { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+    .opinion { background: var(--c-card); padding: 20px; border-radius: 10px; width: 300px; }
+    .opinion p { font-style: italic; color: var(--c-sub); }
+    .opinion h4 { margin-top: 10px; color: var(--c-main); }
+
+    footer {
+      background: #000; color: var(--c-sub); text-align: center; padding: 20px 0;
+      margin-top: 50px; border-top: 1px solid #222;
+    }
+    footer a { color: var(--c-main); text-decoration: none; margin: 0 10px; }
+    footer a:hover { color: var(--c-accent); }
+
+    /* ===============================
+       📱 RESPONSIVE DESIGN
+       =============================== */
+    @media (max-width: 768px) {
+      header {
+        padding: 10px 15px;
+        flex-wrap: wrap;
+      }
+      
+      .logo img {
+        height: 50px;
+      }
+      
+      nav ul {
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+      
+      nav ul li {
+        margin: 0 8px;
+      }
+      
+      .carrito {
+        font-size: 20px;
+      }
+      
+      .hero h1 {
+        font-size: 2.2em;
+      }
+      
+      .hero p {
+        font-size: 1em;
+      }
+      
+      .hero .btn {
+        padding: 10px 20px;
+        font-size: 1em;
+      }
+      
+      section {
+        padding: 60px 15px;
+      }
+      
+      .grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+      }
+      
+      .card {
+        padding: 12px;
+      }
+      
+      .card img {
+        height: 150px;
+      }
+      
+      .opiniones {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .opinion {
+        width: 100%;
+        max-width: 300px;
+      }
+      
+      .carrito-panel {
+        width: 90%;
+        right: 5%;
+        bottom: 10px;
+      }
+      
+      .modal-content {
+        width: 95%;
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 8px 10px;
+      }
+      
+      nav ul {
+        gap: 10px;
+      }
+      
+      nav ul li a {
+        font-size: 14px;
+      }
+      
+      .hero h1 {
+        font-size: 1.8em;
+      }
+      
+      .hero p {
+        font-size: 0.9em;
+      }
+      
+      .hero .btn {
+        padding: 8px 16px;
+        font-size: 0.9em;
+      }
+      
+      section {
+        padding: 50px 10px;
+      }
+      
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      
+      .card img {
+        height: 120px;
+      }
+      
+      .opiniones {
+        gap: 15px;
+      }
+      
+      .opinion {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo" onclick="location.href='index.html'">
+    <img src="img/logo-freddy.png" alt="Freddy Fazbear’s Logo">
+  </div>
+  <nav>
+    <ul>
+      <li><a href="menu.html">Menú</a></li>
+      <li><a href="merch.html">Merchandising</a></li>
+      <li><a href="reservations.html">Reservas</a></li>
+      <li><a href="delivery.html">Delivery</a></li>
+    </ul>
+  </nav>
+  <div class="acciones">
+    <div id="user-section"></div>
+    <div class="carrito" onclick="toggleCart()">🛒</div>
+  </div>
+</header>
+
+</header>
+<section class="hero">
+  <div class="hero-content">
+    <h1>Bienvenido a Freddy Fazbear’s Pizzería</h1>
+    <p>La diversión y el sabor están más vivos que nunca 🍕</p>
+    <a href="menu.html" class="btn">Ver Menú</a>
+  </div>
+</section>
+
+<section>
+  <h2>Menú Destacado</h2>
+  <div id="menuDestacado" class="grid"></div>
+</section>
+
+<section>
+  <h2>Merchandising Destacado</h2>
+  <div id="merchDestacado" class="grid"></div>
+</section>
+
+<section>
+  <h2>Reservá tu mesa</h2>
+  <p style="text-align:center;color:var(--c-sub);margin-bottom:20px;">
+    Viví la experiencia completa en cualquiera de nuestras pizzerías temáticas
+  </p>
+  <div style="text-align:center;">
+    <a href="reservations.html" class="btn">Reservar ahora</a>
+  </div>
+</section>
+
+<section>
+  <h2>Opiniones de nuestros clientes</h2>
+  <div class="opiniones">
+    <div class="opinion"><p>“Una experiencia inolvidable, la pizza estaba increíble y los animatrónicos son impresionantes.”</p><h4>- Laura G.</h4></div>
+    <div class="opinion"><p>“La ambientación es única, fui con mis hijos y no querían irse.”</p><h4>- Marcos P.</h4></div>
+    <div class="opinion"><p>“Comí mejor que en cualquier otra pizzería, Freddy te amo.”</p><h4>- Esteban R.</h4></div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Freddy Fazbear’s Pizzería - Todos los derechos reservados</p>
+  <p>Síguenos en:
+    <a href="#">Instagram</a> |
+    <a href="#">Twitter</a> |
+    <a href="#">Facebook</a>
+  </p>
+</footer>
+
+<!-- Carrito -->
+<div id="carritoPanel" class="panel-carrito">
+  <h3>Tu Carrito</h3>
+  <div id="itemsCarrito"></div>
+  <strong id="totalCarrito">$ 0</strong>
+  <button onclick="checkout()">Finalizar compra</button>
+</div>
+
+<script src="script.js"></script>
+
+<!--  Panel del Carrito Global -->
+<div id="carritoPanel" class="carrito-panel">
+  <h3>🛒 Tu Carrito</h3>
+  <div id="itemsCarrito"></div>
+  <div class="total-linea">
+    <strong>Total:</strong>
+    <span id="totalCarrito">$0</span>
+  </div>
+  <button class="btn-finalizar" onclick="checkout()">Finalizar Compra</button>
+</div>
+
+<!--  Modal de Pago -->
+<div id="paymentModal" class="modal">
+  <div class="modal-content">
+    <h2>💳 Método de Pago</h2>
+    <button class="cerrar" onclick="closePaymentModal()">✖</button>
+
+    <div id="savedCards" class="saved-cards">
+      <p>Cargando tus tarjetas...</p>
+    </div>
+
+    <hr>
+
+    <form id="cardForm" class="payment-form">
+      <label>Titular de la Tarjeta</label>
+      <input type="text" name="holder_name" required>
+
+      <label>Número de Tarjeta</label>
+      <input type="text" name="card_number" maxlength="16" required>
+
+      <label>Fecha de Caducidad</label>
+      <div class="exp-row">
+        <input type="text" name="exp_month" placeholder="MM" maxlength="2" required>
+        <input type="text" name="exp_year" placeholder="AA" maxlength="2" required>
+      </div>
+
+      <label>CVV</label>
+      <input type="password" name="cvv" maxlength="3" required>
+
+      <button type="submit" class="btn-pagar">Guardar Tarjeta y Pagar</button>
+    </form>
+  </div>
+</div>
+
+<!--  Script principal -->
+<script src="script.js"></script>
+
+</body>
+</html>

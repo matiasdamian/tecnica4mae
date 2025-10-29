@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merchandising - Freddy's Pizzería</title>
+  <style>
+    :root {
+      --c-bg: #111;
+      --c-card: #1c1c1c;
+      --c-main: #ffcc00;
+      --c-sub: #aaa;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--c-bg);
+      color: #fff;
+    }
+    header {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      z-index: 1000;
+    }
+    .logo img { height: 50px; cursor: pointer; }
+    .acciones { display: flex; align-items: center; gap: 15px; flex-shrink: 0; }
+    nav { flex: 1 1 auto; min-width: 0; display: flex; justify-content: center; }
+    nav ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    nav ul li { margin: 0; }
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+      transition: color .3s;
+    }
+    nav ul li a:hover { color: var(--c-main); }
+    .carrito { cursor: pointer; font-size: 22px; flex-shrink: 0; }
+
+    main {
+      padding: 100px 20px 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    h1 { text-align: center; margin-bottom: 20px; }
+
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .producto {
+      background: var(--c-card);
+      border-radius: 12px;
+      text-align: center;
+      padding: 15px;
+      transition: transform .3s;
+      box-shadow: 0 0 10px #000;
+    }
+    .producto:hover { transform: scale(1.05); }
+    .producto img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .producto h3 { margin: 10px 0; }
+    .producto p { color: var(--c-sub); margin: 5px 0; }
+    .producto button {
+      background: var(--c-main);
+      border: none;
+      border-radius: 6px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Panel carrito */
+    .panel {
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+    .content {
+      background: var(--c-card);
+      border-radius: 12px;
+      padding: 20px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .line { display:flex; justify-content:space-between; margin:5px 0; }
+    .checkout {
+      margin-top:20px;
+      background:var(--c-main);
+      border:none;
+      padding:10px 15px;
+      width:100%;
+      cursor:pointer;
+      border-radius:8px;
+      font-size:16px;
+    }
+
+    /* Modal de pago */
+    .modal {
+      display:none;
+      position:fixed;
+      top:0; left:0; right:0; bottom:0;
+      background:rgba(0,0,0,0.8);
+      justify-content:center;
+      align-items:center;
+      z-index:3000;
+    }
+    .modal-content {
+      background:var(--c-card);
+      padding:20px;
+      border-radius:10px;
+      width:90%;
+      max-width:400px;
+    }
+    .modal-content input {
+      width:100%;
+      padding:8px;
+      margin:6px 0;
+      border:none;
+      border-radius:6px;
+    }
+    .btn {
+      background:var(--c-main);
+      border:none;
+      padding:10px;
+      width:100%;
+      border-radius:6px;
+      cursor:pointer;
+      font-weight:bold;
+    }
+
+    /* ===============================
+       📱 RESPONSIVE DESIGN
+       =============================== */
+    @media (max-width: 768px) {
+      header {
+        padding: 10px 15px;
+        flex-wrap: wrap;
+      }
+      
+      .logo img {
+        height: 40px;
+      }
+      
+      nav ul {
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+      
+      nav ul li {
+        margin: 0 8px;
+      }
+      
+      .carrito {
+        font-size: 20px;
+      }
+      
+      main {
+        padding: 80px 15px 40px;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+      }
+      
+      .productos {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
+      }
+      
+      .producto {
+        padding: 12px;
+      }
+      
+      .producto img {
+        height: 160px;
+      }
+      
+      .producto h3 {
+        font-size: 16px;
+      }
+      
+      .panel .content {
+        width: 95%;
+        padding: 15px;
+      }
+      
+      .modal-content {
+        width: 95%;
+        padding: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 8px 10px;
+      }
+      
+      nav ul {
+        gap: 10px;
+      }
+      
+      nav ul li a {
+        font-size: 14px;
+      }
+      
+      main {
+        padding: 70px 10px 30px;
+      }
+      
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      .productos {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      
+      .producto {
+        padding: 10px;
+      }
+      
+      .producto img {
+        height: 140px;
+      }
+      
+      .producto h3 {
+        font-size: 14px;
+      }
+      
+      .btn {
+        padding: 8px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo" onclick="location.href='index.html'">
+    <img src="img/logo-freddy.png" alt="Logo Freddy">
+  </div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="menu.html">Menú</a></li>
+      <li><a href="reservations.html">Reservas</a></li>
+      <li><a href="delivery.html">Delivery</a></li>
+    </ul>
+  </nav>
+  <div class="acciones">
+    <div class="carrito" onclick="abrirCarrito()">🛒</div>
+  </div>
+</header>
+
+<main>
+  <h1>Merchandising Oficial</h1>
+  <div class="productos" id="productos"></div>
+</main>
+
+<!-- Panel del carrito -->
+<div id="panelCarrito" class="panel" aria-hidden="true">
+  <div class="content">
+    <h2>Tu carrito</h2>
+    <div id="cart"></div>
+    <strong id="total">$ 0</strong>
+    <button class="checkout" onclick="abrirPago()">Finalizar compra</button>
+  </div>
+</div>
+
+<!-- Modal de pago -->
+<div id="modalPago" class="modal">
+  <div class="modal-content">
+    <h2>Datos de pago</h2>
+    <form id="formPago">
+      <input type="text" name="titular" placeholder="Titular de la tarjeta" required>
+      <input type="text" name="tarjeta" placeholder="Número de tarjeta" maxlength="16" required>
+      <input type="text" name="vencimiento" placeholder="Fecha de caducidad (MM/AA)" required>
+      <input type="text" name="cvv" placeholder="CVV" maxlength="4" required>
+      <button class="btn" type="submit">Confirmar compra</button>
+    </form>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // 🎁 Productos disponibles en la tienda
+  // 👉 Para agregar más, copia un bloque y cambia sus datos.
+  const PRODUCTOS = [
+    {nombre:"Remera Freddy", precio: 8000, img:"https://via.placeholder.com/220x200/ff9ff3/ffffff?text=Remera+Freddy"},
+    {nombre:"Gorra de Bonnie", precio: 6000, img:"https://via.placeholder.com/220x200/54a0ff/ffffff?text=Gorra+Bonnie"},
+    {nombre:"Taza Chica", precio: 4500, img:"https://via.placeholder.com/220x200/5f27cd/ffffff?text=Taza+Chica"},
+    {nombre:"Llavero Foxy", precio: 3500, img:"https://via.placeholder.com/220x200/00d2d3/ffffff?text=Llavero+Foxy"},
+    // {nombre:"Nuevo producto", precio:XXXX, img:"merch/archivo.jpg"},
+  ];
+
+  const contenedor = document.getElementById('productos');
+  const cartContainer = document.getElementById('cart');
+  const totalEl = document.getElementById('total');
+  const panelCarrito = document.getElementById('panelCarrito');
+  const modalPago = document.getElementById('modalPago');
+
+  let carrito = [];
+
+  function renderProductos(){
+    PRODUCTOS.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'producto';
+      card.innerHTML = `
+        <img src="${p.img}" alt="${p.nombre}">
+        <h3>${p.nombre}</h3>
+        <p>$ ${p.precio.toLocaleString('es-AR')}</p>
+        <button>Añadir</button>`;
+      card.querySelector('button').addEventListener('click',()=>{
+        addToCart(p.nombre,p.precio,1);
+        renderCart();
+        alert(`${p.nombre} añadido al carrito`);
+      });
+      contenedor.appendChild(card);
+    });
+  }
+
+  function addToCart(nombre, precio, cantidad=1){
+    const idx = carrito.findIndex(x=>x.nombre===nombre);
+    if(idx>-1) carrito[idx].cantidad+=cantidad;
+    else carrito.push({nombre,precio,cantidad});
+  }
+
+  function renderCart(){
+    cartContainer.innerHTML='';
+    let total=0;
+    carrito.forEach((x,idx)=>{
+      total+=x.precio*x.cantidad;
+      const line=document.createElement('div');
+      line.className='line';
+      line.innerHTML=`<span>${x.nombre} × ${x.cantidad}</span><span>$ ${(x.precio*x.cantidad).toLocaleString('es-AR')}</span>`;
+      cartContainer.appendChild(line);
+    });
+    totalEl.textContent='$ '+total.toLocaleString('es-AR');
+  }
+
+  window.abrirCarrito=function(){
+    panelCarrito.style.display='flex';
+    panelCarrito.setAttribute('aria-hidden','false');
+  };
+  panelCarrito.addEventListener('click', e=>{ if(e.target===panelCarrito){ panelCarrito.style.display='none'; }});
+
+  window.abrirPago=function(){
+    if(carrito.length===0){alert('Tu carrito está vacío.');return;}
+    panelCarrito.style.display='none';
+    modalPago.style.display='flex';
+  };
+
+  document.getElementById('formPago').addEventListener('submit',function(e){
+    e.preventDefault();
+    const total = carrito.reduce((acc,x)=>acc+x.precio*x.cantidad,0);
+    const detalles = JSON.stringify(carrito);
+
+    // Simular guardado de compra
+    if (guardarPedido('merch', detalles, total)) {
+      alert('Compra completada y guardada en tu cuenta ✅');
+      carrito.length=0;renderCart();
+      modalPago.style.display='none';
+    } else {
+      alert('Error al guardar la compra');
+    }
+  });
+
+  renderProductos();
+});
+</script>
+
+<script src="script.js"></script>
+</body>
+</html>
