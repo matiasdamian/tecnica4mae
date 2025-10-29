@@ -262,7 +262,7 @@ body {
   right: 1.5rem;
   font-size: 3.2rem;
   font-weight: 900;
-  color: rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.45);
   line-height: 1;
   transition: all 0.4s ease;
 }
@@ -270,7 +270,7 @@ body {
 .project-number p{text-align: right;}
 
 .project-card:hover .project-number {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.6);
   transform: scale(1.1);
 }
 
@@ -282,10 +282,18 @@ body {
   letter-spacing: -0.01em;
   transform: translateY(0);
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  text-shadow: 0 0 0 rgba(0,0,0,0);
+  background: linear-gradient(135deg, #e9edff 0%, #d7e0ff 45%, #c9d8ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .project-card:hover .project-title {
   transform: translateY(-8px);
+  background: linear-gradient(135deg, #ffffff 0%, #d0dbff 40%, #a7b6ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .project-description {
@@ -296,6 +304,12 @@ body {
   opacity: 0.9;
   transform: translateY(10px);
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Alineación de títulos: limitamos líneas y fijamos altura en desktop */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 8; /* 8 líneas en desktop */
+  overflow: hidden;
+  min-height: 12.92rem; /* 0.95rem * 1.7 * 8 */
 }
 
 .project-card:hover .project-description {
@@ -383,6 +397,12 @@ body {
   .main-title {
     font-size: 2.5rem;
   }
+
+  /* En 2 columnas: permitimos 4 líneas para compensar ancho menor */
+  .project-description {
+    -webkit-line-clamp: 10;
+    min-height: 16.15rem; /* 0.95rem * 1.7 * 10 */
+  }
 }
 
 @media (max-width: 768px) {
@@ -411,6 +431,14 @@ body {
   .project-number {
     font-size: 4rem;
   }
+
+  /* En 1 columna: dejamos que la descripción fluya completa */
+  .project-description {
+    -webkit-line-clamp: unset;
+    min-height: 0;
+    display: block;
+    overflow: visible;
+  }
 }
 
 @media (max-width: 480px) {
@@ -437,5 +465,47 @@ body {
 
   .project-card {
     height: 400px;
+  }
+}
+
+/* Mobile: nombre arriba a la derecha con efecto, sin solaparse */
+@media (max-width: 768px) {
+  .project-number {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.45);
+    line-height: 1;
+    transform: none;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    width: auto;
+    margin-bottom: 0;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+  }
+
+  .project-number p { text-align: right; }
+
+  .project-card:hover .project-number {
+    color: rgba(255, 255, 255, 0.6);
+    transform: scale(1.12);
+  }
+
+  /* Reservar espacio para que título/descr no pasen por debajo */
+  .project-content {
+    padding-top: 5.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-number {
+    font-size: 1.8rem;
+  }
+
+  .project-content {
+    padding-top: 4.5rem;
   }
 }
